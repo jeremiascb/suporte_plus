@@ -1,0 +1,23 @@
+<form action="/novo" method="POST">
+    <input type="text" name="nome" placeholder="Informe o nome">
+    <input type="email" name="email" placeholder="Informe o email">
+    <input type="tel" name="telefone" placeholder="Informe o telefone">
+
+    <button>Salvar</button>
+</form>
+
+<div>
+    {% for contato in contatos %}
+    
+    <div>
+        <h5>{{contato.nome}}</h5>
+        <div>
+            <a href="/atualiza">Atualizar</a>
+            <a href="/remove">Remover</a>
+        </div>
+        <p>{{contato.email}}</p>
+        <p>{{contato.telefone}}</p>
+    </div>
+
+    {% endfor %}
+</div>
