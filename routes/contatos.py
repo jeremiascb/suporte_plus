@@ -25,11 +25,14 @@ def add_contato():
 
 @contatos.route('/atualiza')
 def upd_contato():
-    return "Atulizando o contato"
+    return "Atualizando o contato"
 
-@contatos.route('/remove')
-def del_contato():
-    return "Removendo o contato"   
+@contatos.route('/remove/<id>')
+def del_contato(id):
+    contato = Contato.query.get(id)
+    db.session.delete(contato)
+    db.session.commit()
+    return "Contato removido com sucesso!"   
 
 @contatos.route('/sobre')
 def sobre():
