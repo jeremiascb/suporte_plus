@@ -32,7 +32,8 @@ def del_contato(id):
     contato = Contato.query.get(id)
     db.session.delete(contato)
     db.session.commit()
-    return "Contato removido com sucesso!"   
+
+    return redirect('/')   
 
 @contatos.route('/sobre')
 def sobre():
