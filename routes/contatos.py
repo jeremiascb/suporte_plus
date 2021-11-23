@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect
-from werkzeug.utils import redirect
 from models.contato import Contato
 from utils.db import db
 
