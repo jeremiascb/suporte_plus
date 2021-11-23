@@ -23,8 +23,8 @@
         <div>
             <h5>{{contato.nome}}</h5>
             <div>
-                <a href="{{ url_for('contatos.upd_contato') }}">Atualizar</a>
-                <a href="{{ url_for('contatos.del_contato', id=contato.id) }}">Remover</a>
+                <a href="{{ url_for('contatos.upd_contato', id=contato.id) }}"> Atualizar </a>
+                <a href="{{ url_for('contatos.del_contato', id=contato.id) }}"> Remover </a>
             </div>
             <p>{{contato.email}}</p>
             <p>{{contato.telefone}}</p>

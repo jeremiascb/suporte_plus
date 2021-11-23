@@ -1,13 +1,16 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from models.contato import Contato
 from utils.db import db
 
+
 contatos = Blueprint('contatos', __name__)
 
+
 @contatos.route('/')
-def home():
+def index():
     contatos = Contato.query.all()
     return render_template('index.html', contatos=contatos)
+
 
 @contatos.route('/novo', methods=['POST'])
 def add_contato():
@@ -20,11 +23,25 @@ def add_contato():
     db.session.add(novo_contato)
     db.session.commit()
 
-    return redirect('/')
+    return redirect(url_for('contatos.index')) 
 
-@contatos.route('/atualiza')
-def upd_contato():
-    return "Atualizando o contato"
+
+@contatos.route('/atualiza/<id>', methods = ['POST', 'GET'])
+def upd_contato(id):
+    contato = Contato.query.get(id)
+    
+    if request.method == 'POST':
+        contato = Contato.query.get(id)
+        contato.nome = request.form["nome"]
+        contato.email = request.form["email"]
+        contato.telefone = request.form["telefone"]
+
+        db.session.commit()
+
+        return redirect(url_for("contatos.index"))
+
+    return render_template('update.html', contato=contato)
+
 
 @contatos.route('/remove/<id>')
 def del_contato(id):
@@ -32,7 +49,8 @@ def del_contato(id):
     db.session.delete(contato)
     db.session.commit()
 
-    return redirect('/')   
+    return redirect(url_for('contatos.index'))   
+
 
 @contatos.route('/sobre')
 def sobre():
