@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.contato import Contato
 from utils.db import db
 
@@ -23,6 +23,8 @@ def add_contato():
     db.session.add(novo_contato)
     db.session.commit()
 
+    flash("Contato adicionado!")
+
     return redirect(url_for('contatos.index')) 
 
 
@@ -38,6 +40,8 @@ def upd_contato(id):
 
         db.session.commit()
 
+        flash("Contato atualizado!")
+
         return redirect(url_for("contatos.index"))
 
     return render_template('update.html', contato=contato)
@@ -48,6 +52,8 @@ def del_contato(id):
     contato = Contato.query.get(id)
     db.session.delete(contato)
     db.session.commit()
+
+    flash("Contato removido!")
 
     return redirect(url_for('contatos.index'))   
 
